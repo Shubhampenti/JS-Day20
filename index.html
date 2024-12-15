@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks</title>
+  <style>
+    .card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2>Task 1: Sum of Numbers</h2>
+  <div id="sum"></div>
+
+  <h2>Task 2: Calculate Average</h2>
+  <div id="average"></div>
+
+  <h2>Task 3: Filter Adults</h2>
+  <div id="adults"></div>
+
+  <h2>Task 4: Fake Store API - Cards</h2>
+  <div id="cards-section"></div>
+
+  <script>
+    // Task 1: Sum of Numbers
+    document.getElementById("sum").innerText = `Sum: ${[1, 2, 3, 4, 5].reduce((a, b) => a + b, 0)}`;
+
+    // Task 2: Calculate Average
+    const numbers2 = [10, 20, 30, 40, 50];
+    document.getElementById("average").innerText = `Average: ${numbers2.reduce((a, b) => a + b) / numbers2.length}`;
+
+    // Task 3: Filter Adults
+    const people = [{ name: "John", age: 17 }, { name: "Jane", age: 22 }, { name: "Jim", age: 15 }, { name: "Jack", age: 19 }];
+    document.getElementById("adults").innerText = `Adults: ${JSON.stringify(people.filter(person => person.age >= 18))}`;
+
+    //Fetch and Display Products from Fake Store API
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('cards-section').innerHTML = data.map(product => `
+          <div class="card">
+            <h3>${product.title}</h3>
+            <img src="${product.image}" alt="${product.title}">
+            <p>Price: $${product.price}</p>
+          </div>
+        `).join('');
+      })
+      .catch(error => console.error("Error fetching data:", error));
+  </script>
+</body>
+</html>
